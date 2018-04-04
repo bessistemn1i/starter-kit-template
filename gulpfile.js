@@ -11,6 +11,7 @@ var gulp = require('gulp'),
 	changed = require('gulp-changed'),
 	nunjucksRender = require('gulp-nunjucks-render'),
 	data = require('gulp-data'),
+	babel = require ('gulp-babel'),
 	reload = browserSync.reload;
 
 var path = {
@@ -60,6 +61,9 @@ gulp.task('html:build', function(){
 });
 gulp.task('js:build', function(){
 	gulp.src(path.src.js)
+	.pipe(babel({
+		presets: ['env']
+	}))
 	.pipe(rigger())
 	.pipe(sourcemaps.init())
 	.pipe(uglify())
